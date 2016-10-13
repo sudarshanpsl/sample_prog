@@ -2,7 +2,7 @@ language: c
 
 compiler: gcc
 
-#install: make
+#install: make - test commit
 script: gcc ctest.c -o cout
 
 - PLATFORM=$(uname -m)
