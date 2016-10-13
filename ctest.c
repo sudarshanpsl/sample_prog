@@ -1,4 +1,4 @@
-#test application
+//test application
 #include<stdio.h>
 
 int main ()
