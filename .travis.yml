@@ -3,9 +3,14 @@ language: c
 compiler: gcc
 
 #install: make - test commit
-script: 
+script:
  - gcc ctest.c -o cout
  - PLATFORM=$(uname -m)
  - echo "checking hardware type - 1"
- - if [ "${PLATFORM}" = 'ppc64' -o "${PLATFORM}" = 'ppc64le' ]; then echo "Its ppc hardware"; else echo "non ppc host"; fi
+ - if [ "${PLATFORM}" = 'ppc64' -o "${PLATFORM}" = 'ppc64le' ]; 
+ - then 
+ - echo "Its ppc hardware"; 
+ - else 
+ - echo "non ppc host"; 
+ - fi
  - echo "checking hardware type - 2"
