@@ -6,4 +6,4 @@ compiler: gcc
 script: gcc ctest.c -o cout
 
  - PLATFORM=$(uname -m)
- - if [ "${PLATFORM}" = 'ppc64' -o "${PLATFORM}" = 'ppc64le' ]; then echo "Its ppc hardware"
+ - if [ "${PLATFORM}" = 'ppc64' -o "${PLATFORM}" = 'ppc64le' ]; then echo "Its ppc hardware"; fi
