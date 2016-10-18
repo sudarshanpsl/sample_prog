@@ -15,10 +15,7 @@ before_install:
 script:
  - set -e
  - PLATFORM=$(uname -m)
- - if [ "${PLATFORM}" = 'ppc64' -o "${PLATFORM}" = 'ppc64le' ]; then make QUIET_MAKE=1 TARGET=POWER8 NUM_THREADS=32 $BTYPE fi
- - if [ "${PLATFORM}" = 'ppc64' -o "${PLATFORM}" = 'ppc64le' ]; then if [ "$TARGET_BOX" == "LINUX32" ] || [ "$TARGET_BOX" == "LINUX64" ]; then make -C test TARGET=POWER8 NUM_THREADS=32 $BTYPE; fi fi
- - if [ "${PLATFORM}" = 'ppc64' -o "${PLATFORM}" = 'ppc64le' ]; then if [ "$TARGET_BOX" == "LINUX32" ] || [ "$TARGET_BOX" == "LINUX64" ]; then make -C ctest TARGET=POWER8 NUM_THREADS=32 $BTYPE; fi fi
- - if [ "${PLATFORM}" = 'ppc64' -o "${PLATFORM}" = 'ppc64le' ]; then if [ "$TARGET_BOX" == "LINUX32" ] || [ "$TARGET_BOX" == "LINUX64" ]; then make -C utest TARGET=POWER8 NUM_THREADS=32 $BTYPE; fi fi
+ - if [ "${PLATFORM}" = 'ppc64' -o "${PLATFORM}" = 'ppc64le' ]; then sh travis/build-ppc.sh else sh travis/build-x86.sh fi
 
 # whitelist
 branches:
