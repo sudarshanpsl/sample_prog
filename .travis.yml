@@ -1,16 +1,27 @@
 language: c
 
-compiler: gcc
+compiler:
+  - gcc
 
-#install: make - test commit
+env:
+  - TARGET_BOX=LINUX64 BTYPE="BINARY=64"
+  - TARGET_BOX=LINUX64 BTYPE="BINARY=64 USE_OPENMP=1"
+  - TARGET_BOX=LINUX64 BTYPE="BINARY=64 INTERFACE64=1"
+
+before_install:
+ - sudo apt-get update -qq
+ - sudo apt-get install -qq gfortran
+
 script:
- - gcc ctest.c -o cout
+ - set -e
  - PLATFORM=$(uname -m)
- - echo "checking hardware type - 1"
- - if [ "${PLATFORM}" = 'ppc64' -o "${PLATFORM}" = 'ppc64le' ]; 
- - then 
- - echo "Its ppc hardware"; 
- - else 
- - echo "non ppc host"; 
- - fi
- - echo "checking hardware type - 2"
+ - if [ "${PLATFORM}" = 'ppc64' -o "${PLATFORM}" = 'ppc64le' ]; then make QUIET_MAKE=1 TARGET=POWER8 NUM_THREADS=32 $BTYPE fi
+ - if [ "${PLATFORM}" = 'ppc64' -o "${PLATFORM}" = 'ppc64le' ]; then if [ "$TARGET_BOX" == "LINUX32" ] || [ "$TARGET_BOX" == "LINUX64" ]; then make -C test TARGET=POWER8 NUM_THREADS=32 $BTYPE; fi fi
+ - if [ "${PLATFORM}" = 'ppc64' -o "${PLATFORM}" = 'ppc64le' ]; then if [ "$TARGET_BOX" == "LINUX32" ] || [ "$TARGET_BOX" == "LINUX64" ]; then make -C ctest TARGET=POWER8 NUM_THREADS=32 $BTYPE; fi fi
+ - if [ "${PLATFORM}" = 'ppc64' -o "${PLATFORM}" = 'ppc64le' ]; then if [ "$TARGET_BOX" == "LINUX32" ] || [ "$TARGET_BOX" == "LINUX64" ]; then make -C utest TARGET=POWER8 NUM_THREADS=32 $BTYPE; fi fi
+
+# whitelist
+branches:
+  only:
+    - master
+    - develop
