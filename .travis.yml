@@ -2,25 +2,3 @@ language: c
 
 compiler:
   - gcc
-
-env:
-  - TARGET_BOX=LINUX64 BTYPE="BINARY=64"
-  - TARGET_BOX=LINUX64 BTYPE="BINARY=64 USE_OPENMP=1"
-  - TARGET_BOX=LINUX64 BTYPE="BINARY=64 INTERFACE64=1"
-
-before_install:
- - sudo apt-get update -qq
- - sudo apt-get install -qq gfortran
-
-script:
- - set -e
- - PLATFORM=$(uname -m)
- - if [ "${PLATFORM}" = 'ppc64' -o "${PLATFORM}" = 'ppc64le' ]; then sh travis/build-ppc.sh else sh travis/build-x86.sh; fi
- - echo "Sample program build done"
- - if [1]; then echo "sample if condition-- if  " else "sample if condition --2"; fi 
-
-# whitelist
-branches:
-  only:
-    - master
-    - develop
