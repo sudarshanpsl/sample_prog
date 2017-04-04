@@ -1,9 +1,0 @@
-language: c
-
-compiler:
-  - gcc
-  
-script: 
-  - echo "Building ctest.c"
-  - gcc ctest.c -o cout
-  - echo "Building ctest.c - Done"
